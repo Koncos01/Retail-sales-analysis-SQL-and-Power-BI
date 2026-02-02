@@ -28,4 +28,13 @@ SQL_Transformation_and_Reporting.sql: Contains the full data pipeline from raw d
 
 Retail_Analytics_Dashboard.pbix: The Power BI file containing the data model and interactive visualizations.
 
-Dashboard_Preview.png: A high-resolution screenshot of the final report.
+image.png: A high-resolution screenshot of the final report.
+
+## nsights
+The dashboard provides a 360-degree view of the retail network's performance, enabling stakeholders to:
+
+Identify the top-performing stores and regions at a glance.
+
+Track sales trends over time to spot seasonality.
+
+Compare product category performance across different territories.
