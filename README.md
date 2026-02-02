@@ -17,5 +17,4 @@ A cél az volt, hogy az elszórt CSV adatokból egy egységes, tisztított SQL a
 - Regionális értékesítési hőtérkép.
 
 ## Hogyan nézd meg?
-1. Töltsd le a `Regional_Sales_Performance_Review` fájlt.
-2. Nyisd meg Power BI Desktopban.
+1. Az image.png képen látszanak a Power Bi-ban történt vizualizációk és dashboardok
