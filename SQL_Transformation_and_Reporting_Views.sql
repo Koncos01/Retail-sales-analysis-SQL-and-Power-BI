@@ -1,16 +1,11 @@
-alter table east/west stb
+# 1. Data Integrity and Relationships
+
+alter table east/west etc.
 add constraint foreign_name
 foreign key (category, store,SP_ID, Product) references categories/stores/sellers/products(Category_ID/Store_ID/ID/Product_ID(
 
-
-create view Beverages_Product as (
-select p.Product_ID, p.Product,
- c.Category
-from products as p
-join categories as c
-on p.Category_ID = c.Category_ID
-where Category = "Beverages");
-
+ # 2. Data Consolidation
+ 
 create table all_orders
 select Order_ID, Order_DATE, Product, Store, Units_Sold, SP_ID, "East" as region
  from east
@@ -24,21 +19,9 @@ select Order_ID, Order_DATE, Product, Store, Units_Sold, SP_ID, "East" as region
  union all 
  select *, "North West" from north_west
 
-create view Sold_products_by_seller as (
-select sum(w.Units_Sold) as selled_products,
-s.Sales_rep
-from west as w
-join sellers as s
-on w.SP_ID = s.ID
-group by w.sp_ID
-order by selled_products desc);
-
-select round(sum(s.Units_Sold * p.Price), 2) as Revenue
-from south as s
-join products as p
-on s.Product = p.product_ID;
-
-alter table all_orders
+# 3. Data Transformation and Type Casting
+ 
+ alter table all_orders
 add column order_dates date;
 set sql_safe_updates = 0;
 update all_orders
@@ -68,6 +51,39 @@ alter table south
 add column order_dates date;
 update south
 set order_dates = str_to_date(Order_Date, '%d-%b-%y');
+
+ set sql_safe_updates = 0;
+update products
+set Price = replace(Price, ',', '.');
+
+alter table products
+modify column Price decimal(10, 2);
+
+# 4. Business Intelligence Views
+
+ create view Beverages_Product as (
+select p.Product_ID, p.Product,
+ c.Category
+from products as p
+join categories as c
+on p.Category_ID = c.Category_ID
+where Category = "Beverages");
+
+create view Sold_products_by_seller as (
+select sum(w.Units_Sold) as selled_products,
+s.Sales_rep
+from west as w
+join sellers as s
+on w.SP_ID = s.ID
+group by w.sp_ID
+order by selled_products desc);
+
+create view Revenue as (
+ select round(sum(s.Units_Sold * p.Price), 2) as Revenue
+from south as s
+join products as p
+on s.Product = p.product_ID);
+
 
 create view top_5_store_by_revenue as (
 select s.Storee, 
@@ -125,6 +141,8 @@ rank() over(order by sum(o.units_sold) desc, count(*) desc) as ranks
  on o.SP_ID = s.ID
  group by seller);
 
+# 5. Final Reporting Model for Power BI
+
 CREATE VIEW PowerBI_Sales_Model AS
 SELECT 
     o.Order_ID,
@@ -142,14 +160,6 @@ LEFT JOIN products AS p ON o.Product = p.Product_ID
 LEFT JOIN categories AS c ON p.Category_ID = c.Category_ID
 LEFT JOIN stores AS s ON o.Store = s.Store_ID
 LEFT JOIN sellers AS r ON o.SP_ID = r.ID;
- 
-set sql_safe_updates = 0;
-update products
-set Price = replace(Price, ',', '.');
-
-alter table products
-modify column Price decimal(10, 2);
-
 
 
  drop view revenue;
@@ -182,6 +192,7 @@ on bi.product = p.product);
 
  
  
+
 
 
 
