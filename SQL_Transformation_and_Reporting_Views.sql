@@ -1,8 +1,84 @@
 # 1. Data Integrity and Relationships
 
-alter table east/west etc.
-add constraint foreign_name
-foreign key (category, store,SP_ID, Product) references categories/stores/sellers/products(Category_ID/Store_ID/ID/Product_ID(
+  alter table east
+ add constraint foreign_category_east
+ foreign key category references categories(Category_ID);
+
+ alter table east
+ add constraint foreign_store_east
+ foreign key store references stores(Store_ID);
+ 
+ alter table east
+ add constraint foreign_seller_east
+ foreign key SP_ID references sellers(ID);
+
+ alter table east
+ add constraint foreign_product_east
+ foreign key Product references products(Product_ID);
+
+ alter table west
+ add constraint foreign_category_west
+ foreign key category references categories(Category_ID);
+
+ alter table west
+ add constraint foreign_store_east
+ foreign key store references stores(Store_ID);
+ 
+ alter table west
+ add constraint foreign_seller_east
+ foreign key SP_ID references sellers(ID);
+
+ alter table west
+ add constraint foreign_product_west
+ foreign key Product references products(Product_ID);
+
+   alter table north_west
+ add constraint foreign_category_northwest
+ foreign key category references categories(Category_ID);
+
+ alter table north_west
+ add constraint foreign_store_northwest
+ foreign key store references stores(Store_ID);
+ 
+ alter table north_west
+ add constraint foreign_seller_northwest
+ foreign key SP_ID references sellers(ID);
+
+ alter table north_west
+ add constraint foreign_product_northwest
+ foreign key Product references products(Product_ID);
+
+   alter table north_east
+ add constraint foreign_category_northeast
+ foreign key category references categories(Category_ID);
+
+ alter table north_east
+ add constraint foreign_store_northeast
+ foreign key store references stores(Store_ID);
+ 
+ alter table north_east
+ add constraint foreign_seller_northeast
+ foreign key SP_ID references sellers(ID);
+
+ alter table north_east
+ add constraint foreign_product_northeast
+ foreign key Product references products(Product_ID);
+
+ alter table south
+ add constraint foreign_category_south
+ foreign key category references categories(Category_ID);
+
+ alter table south
+ add constraint foreign_store_south
+ foreign key store references stores(Store_ID);
+ 
+ alter table south
+ add constraint foreign_seller_south
+ foreign key SP_ID references sellers(ID);
+
+ alter table south
+ add constraint foreign_product_south
+ foreign key Product references products(Product_ID);
 
  # 2. Data Consolidation
  
@@ -192,6 +268,7 @@ on bi.product = p.product);
 
  
  
+
 
 
 
