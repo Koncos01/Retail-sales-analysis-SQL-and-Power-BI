@@ -1,4 +1,5 @@
-![Uploading image.png…]()
+<img width="1354" height="738" alt="image" src="https://github.com/user-attachments/assets/26435747-c0dd-48cc-95d6-ed91ea0293ae" />
+
 
 
 # Retail sales analysis SQL and Power-BI
